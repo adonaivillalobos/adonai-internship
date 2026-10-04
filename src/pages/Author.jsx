@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import AuthorBanner from "../images/author_banner.jpg";
 import AuthorItems from "../components/author/AuthorItems";
-import { Link } from "react-router-dom";
 
-const AUTHOR_ID = 73855012;
-const API_URL =
-  "https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=" +
-  AUTHOR_ID;
+const DEFAULT_AUTHOR_ID = "73855012";
+const API_BASE =
+  "https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=";
 
 const Author = () => {
+  const { authorId } = useParams();
+  const id = authorId || DEFAULT_AUTHOR_ID;
+
   const [author, setAuthor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -19,8 +21,12 @@ const Author = () => {
     let cancelled = false;
 
     async function loadAuthor() {
+      setLoading(true);
+      setError(null);
+      setIsFollowing(false);
+
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(API_BASE + id);
         if (!response.ok) {
           throw new Error("Request failed: " + response.status);
         }
@@ -45,7 +51,7 @@ const Author = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [id]);
 
   const handleFollow = (e) => {
     e.preventDefault();
