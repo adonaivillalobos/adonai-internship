@@ -51,41 +51,66 @@ const TopSellers = () => {
             </div>
           </div>
 
-          {loading && (
-            <div className="col-md-12 text-center">
-              <p>Loading...</p>
-            </div>
-          )}
-
           {error && (
             <div className="col-md-12 text-center">
               <p>Could not load top sellers.</p>
             </div>
           )}
 
-          {!loading && !error && (
+          {!error && (
             <div className="col-md-12">
               <ol className="author_list">
-                {sellers.map((seller) => (
-                  <li key={seller.id}>
-                    <div className="author_list_pp">
-                      <Link to={"/author/" + seller.authorId}>
-                        <img
-                          className="lazy pp-author"
-                          src={seller.authorImage}
-                          alt={seller.authorName}
-                        />
-                        <i className="fa fa-check"></i>
-                      </Link>
-                    </div>
-                    <div className="author_list_info">
-                      <Link to={"/author/" + seller.authorId}>
-                        {seller.authorName}
-                      </Link>
-                      <span>{seller.price} ETH</span>
-                    </div>
-                  </li>
-                ))}
+                {loading &&
+                  new Array(12).fill(0).map((_, index) => (
+                    <li key={index}>
+                      <div className="author_list_pp">
+                        <div
+                          className="skeleton"
+                          style={{
+                            width: "50px",
+                            height: "50px",
+                            borderRadius: "50%",
+                          }}
+                        ></div>
+                      </div>
+                      <div className="author_list_info">
+                        <div
+                          className="skeleton"
+                          style={{ width: "120px", height: "16px" }}
+                        ></div>
+                        <div
+                          className="skeleton"
+                          style={{
+                            width: "60px",
+                            height: "12px",
+                            marginTop: "8px",
+                          }}
+                        ></div>
+                      </div>
+                    </li>
+                  ))}
+
+                {!loading &&
+                  sellers.map((seller) => (
+                    <li key={seller.id}>
+                      <div className="author_list_pp">
+                        <Link to={"/author/" + seller.authorId}>
+                          <img
+                            className="lazy pp-author"
+                            src={seller.authorImage}
+                            alt={seller.authorName}
+                          />
+                          <i className="fa fa-check"></i>
+                        </Link>
+                      </div>
+                      <div className="author_list_info">
+                        <Link to={"/author/" + seller.authorId}>
+                          {seller.authorName}
+                        </Link>
+                        <span>{seller.price} ETH</span>
+                      </div>
+                    </li>
+                  ))}
               </ol>
             </div>
           )}

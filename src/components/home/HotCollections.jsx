@@ -52,6 +52,36 @@ const sliderSettings = {
   ],
 };
 
+const SkeletonCard = () => (
+  <div className="nft_coll" style={{ margin: 0 }}>
+    <div
+      className="skeleton"
+      style={{ height: "180px", borderRadius: "8px 8px 0 0" }}
+    ></div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "16px 0 24px",
+      }}
+    >
+      <div
+        className="skeleton"
+        style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+      ></div>
+      <div
+        className="skeleton"
+        style={{ width: "60%", height: "18px", marginTop: "16px" }}
+      ></div>
+      <div
+        className="skeleton"
+        style={{ width: "35%", height: "14px", marginTop: "10px" }}
+      ></div>
+    </div>
+  </div>
+);
+
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,8 +130,17 @@ const HotCollections = () => {
           </div>
 
           {loading && (
-            <div className="col-lg-12 text-center">
-              <p>Loading...</p>
+            <div className="col-lg-12">
+              <div className="row">
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    className="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                    key={i}
+                  >
+                    <SkeletonCard />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
