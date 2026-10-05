@@ -82,69 +82,127 @@ const Author = () => {
 
         <section aria-label="section">
           <div className="container">
-            {loading && (
-              <div className="text-center">
-                <p>Loading...</p>
-              </div>
-            )}
-
             {error && (
               <div className="text-center">
                 <p>Could not load this author.</p>
               </div>
             )}
 
-            {!loading && !error && author && (
+            {!error && (
               <div className="row">
                 <div className="col-md-12">
-                  <div className="d_profile de-flex">
-                    <div className="de-flex-col">
-                      <div className="profile_avatar">
-                        <img src={author.authorImage} alt={author.authorName} />
-
-                        <i className="fa fa-check"></i>
-                        <div className="profile_name">
-                          <h4>
-                            {author.authorName}
-                            <span className="profile_username">
-                              @{author.tag}
-                            </span>
-                            <span id="wallet" className="profile_wallet">
-                              {author.address}
-                            </span>
-                            <button
-                              id="btn_copy"
-                              title="Copy Text"
-                              onClick={handleCopy}
-                            >
-                              Copy
-                            </button>
-                          </h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="profile_follow de-flex">
+                  {loading && (
+                    <div className="d_profile de-flex">
                       <div className="de-flex-col">
-                        <div className="profile_follower">
-                          {followers} followers
-                        </div>
-                        <Link
-                          to="#"
-                          className="btn-main"
-                          onClick={handleFollow}
+                        <div
+                          style={{ display: "flex", alignItems: "center" }}
                         >
-                          {isFollowing ? "Unfollow" : "Follow"}
-                        </Link>
+                          <div
+                            className="skeleton"
+                            style={{
+                              width: "150px",
+                              height: "150px",
+                              borderRadius: "50%",
+                            }}
+                          ></div>
+                          <div style={{ marginLeft: "20px" }}>
+                            <div
+                              className="skeleton"
+                              style={{ width: "200px", height: "22px" }}
+                            ></div>
+                            <div
+                              className="skeleton"
+                              style={{
+                                width: "120px",
+                                height: "16px",
+                                marginTop: "10px",
+                              }}
+                            ></div>
+                            <div
+                              className="skeleton"
+                              style={{
+                                width: "320px",
+                                maxWidth: "100%",
+                                height: "16px",
+                                marginTop: "10px",
+                              }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="profile_follow de-flex">
+                        <div className="de-flex-col">
+                          <div
+                            className="skeleton"
+                            style={{ width: "110px", height: "16px" }}
+                          ></div>
+                          <div
+                            className="skeleton"
+                            style={{
+                              width: "90px",
+                              height: "40px",
+                              marginTop: "10px",
+                            }}
+                          ></div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
+
+                  {!loading && author && (
+                    <div className="d_profile de-flex">
+                      <div className="de-flex-col">
+                        <div className="profile_avatar">
+                          <img
+                            src={author.authorImage}
+                            alt={author.authorName}
+                          />
+
+                          <i className="fa fa-check"></i>
+                          <div className="profile_name">
+                            <h4>
+                              {author.authorName}
+                              <span className="profile_username">
+                                @{author.tag}
+                              </span>
+                              <span id="wallet" className="profile_wallet">
+                                {author.address}
+                              </span>
+                              <button
+                                id="btn_copy"
+                                title="Copy Text"
+                                onClick={handleCopy}
+                              >
+                                Copy
+                              </button>
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="profile_follow de-flex">
+                        <div className="de-flex-col">
+                          <div className="profile_follower">
+                            {followers} followers
+                          </div>
+                          <Link
+                            to="#"
+                            className="btn-main"
+                            onClick={handleFollow}
+                          >
+                            {isFollowing ? "Unfollow" : "Follow"}
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-md-12">
                   <div className="de_tab tab_simple">
                     <AuthorItems
-                      items={author.nftCollection}
-                      authorImage={author.authorImage}
+                      items={author ? author.nftCollection : []}
+                      authorImage={author ? author.authorImage : ""}
+                      loading={loading}
                     />
                   </div>
                 </div>
