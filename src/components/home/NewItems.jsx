@@ -52,6 +52,27 @@ const sliderSettings = {
   ],
 };
 
+const SkeletonCard = () => (
+  <div className="nft__item" style={{ margin: 0 }}>
+    <div
+      className="skeleton"
+      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+    ></div>
+    <div
+      className="skeleton"
+      style={{ height: "260px", marginTop: "16px" }}
+    ></div>
+    <div
+      className="skeleton"
+      style={{ width: "65%", height: "18px", marginTop: "20px" }}
+    ></div>
+    <div
+      className="skeleton"
+      style={{ width: "35%", height: "14px", marginTop: "12px" }}
+    ></div>
+  </div>
+);
+
 const Countdown = ({ expiryDate }) => {
   const [timeLeft, setTimeLeft] = useState(expiryDate - Date.now());
 
@@ -127,8 +148,17 @@ const NewItems = () => {
           </div>
 
           {loading && (
-            <div className="col-lg-12 text-center">
-              <p>Loading...</p>
+            <div className="col-lg-12">
+              <div className="row">
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    className="col-lg-3 col-md-6 col-sm-6 col-xs-12"
+                    key={i}
+                  >
+                    <SkeletonCard />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
@@ -166,13 +196,21 @@ const NewItems = () => {
                             <button>Buy Now</button>
                             <div className="nft__item_share">
                               <h4>Share</h4>
-                              <a href="" target="_blank" rel="noreferrer">
+                              <a
+                                href="https://www.facebook.com/sharer/sharer.php"
+                                target="_blank"
+                                rel="noreferrer"
+                              >
                                 <i className="fa fa-facebook fa-lg"></i>
                               </a>
-                              <a href="" target="_blank" rel="noreferrer">
+                              <a
+                                href="https://twitter.com/intent/tweet"
+                                target="_blank"
+                                rel="noreferrer"
+                              >
                                 <i className="fa fa-twitter fa-lg"></i>
                               </a>
-                              <a href="">
+                              <a href="mailto:">
                                 <i className="fa fa-envelope fa-lg"></i>
                               </a>
                             </div>
