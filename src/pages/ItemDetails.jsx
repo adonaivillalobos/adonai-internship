@@ -6,6 +6,69 @@ const DEFAULT_NFT_ID = "17914494";
 const API_BASE =
   "https://us-central1-nft-cloud-functions.cloudfunctions.net/itemDetails?nftId=";
 
+const PersonSkeleton = () => (
+  <div style={{ display: "flex", alignItems: "center", marginTop: "10px" }}>
+    <div
+      className="skeleton"
+      style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+    ></div>
+    <div
+      className="skeleton"
+      style={{ width: "140px", height: "16px", marginLeft: "16px" }}
+    ></div>
+  </div>
+);
+
+const ItemSkeleton = () => (
+  <div className="row">
+    <div className="col-md-6 text-center">
+      <div
+        className="skeleton"
+        style={{ width: "100%", height: "480px", maxWidth: "100%" }}
+      ></div>
+    </div>
+    <div className="col-md-6">
+      <div className="item_info">
+        <div
+          className="skeleton"
+          style={{ width: "70%", height: "36px" }}
+        ></div>
+        <div style={{ display: "flex", marginTop: "20px" }}>
+          <div
+            className="skeleton"
+            style={{ width: "70px", height: "30px" }}
+          ></div>
+          <div
+            className="skeleton"
+            style={{ width: "70px", height: "30px", marginLeft: "12px" }}
+          ></div>
+        </div>
+        <div
+          className="skeleton"
+          style={{ width: "100%", height: "14px", marginTop: "24px" }}
+        ></div>
+        <div
+          className="skeleton"
+          style={{ width: "90%", height: "14px", marginTop: "10px" }}
+        ></div>
+        <div
+          className="skeleton"
+          style={{ width: "60%", height: "14px", marginTop: "10px" }}
+        ></div>
+        <h6 style={{ marginTop: "30px" }}>Owner</h6>
+        <PersonSkeleton />
+        <h6 style={{ marginTop: "30px" }}>Creator</h6>
+        <PersonSkeleton />
+        <h6 style={{ marginTop: "30px" }}>Price</h6>
+        <div
+          className="skeleton"
+          style={{ width: "100px", height: "32px", marginTop: "10px" }}
+        ></div>
+      </div>
+    </div>
+  </div>
+);
+
 const ItemDetails = () => {
   const { nftId } = useParams();
   const id = nftId || DEFAULT_NFT_ID;
@@ -58,11 +121,7 @@ const ItemDetails = () => {
         <div id="top"></div>
         <section aria-label="section" className="mt90 sm-mt-0">
           <div className="container">
-            {loading && (
-              <div className="text-center">
-                <p>Loading...</p>
-              </div>
-            )}
+            {loading && <ItemSkeleton />}
 
             {error && (
               <div className="text-center">
